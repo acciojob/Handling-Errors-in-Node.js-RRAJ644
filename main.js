@@ -1,15 +1,16 @@
 const fs = require('fs')
 
-function printFileContents(filePath) {
-  fs.readFile(filePath, 'utf8', (err, data) => {
-    if (err) {
-      console.error(`Column '${filePath}' not found in the CSV.`)
-      return
-    }
-    console.log(data)
-  })
-}
-
 const filePath = process.argv[2]
 
-printFileContents(filePath)
+if (!filePath) {
+  console.error('Usage: node print.js <file_path>')
+  process.exit(1)
+}
+
+fs.readFile(filePath, 'utf8', (err, data) => {
+  if (err) {
+    console.error(`Error: ${err.message}`)
+  } else {
+    console.log(data)
+  }
+})
